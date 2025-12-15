@@ -57,3 +57,21 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Como executar
+
+Recomendo usar o Docker para execução do projeto. Após instalá-lo em sua máquina, execute:
+
+```bash
+# Caso queira recriar o projeto via Docker
+$ curl -s "https://laravel.build/laravel-app?with=mysql" | bash
+
+# Para rodar o projeto usando o Laravel Sail
+$ ./vendor/bin/sail up
+$ ./vendor/bin/sail artisan migrate
+
+# Caso deseje simplificar os comandos, adicionar o apelido 'sail' ao comando './vendor/bin/sail'
+$ alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+$ echo "alias sail='sh \$([ -f sail ] && echo sail || echo vendor/bin/sail)'" >> ~/.zshrc
+```
