@@ -58,6 +58,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Preparação do ambiente
+
+Crie um arquivo .env utilizando o template do arquivo <b>.env.example</b>, descomentando e modificando as configurações referentes a banco da dados. Caso esteja usando um banco de dados local ao invés de criar um contâiner Docker com o MySQL, configure a base de dados no .env criado, precisamente nas variáveis de ambiente que iniciarem com <b>DB_</b>. Neste caso, poderá desconsiderar as configurações referentes ao contâiner do MySQL definidas no arquivo <i>/compose.yaml</i>.
 
 ## Como executar
 
@@ -69,7 +72,12 @@ $ curl -s "https://laravel.build/laravel-app?with=mysql" | bash
 
 # Para rodar o projeto usando o Laravel Sail
 $ ./vendor/bin/sail up
+$ alias./vendor/bin/sail artisan key:generate
 $ ./vendor/bin/sail artisan migrate
+$ ./vendor/bin/sail artisan db:seed # popular banco de dados
+# instalar dependências do vite e do tailwind
+$ npm install
+$ npm run build
 
 # Caso deseje simplificar os comandos, adicionar o apelido 'sail' ao comando './vendor/bin/sail'
 $ alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
