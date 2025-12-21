@@ -60,7 +60,16 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Preparação do ambiente
 
-Crie um arquivo .env utilizando o template do arquivo <b>.env.example</b>, descomentando e modificando as configurações referentes a banco da dados. Caso esteja usando um banco de dados local ao invés de criar um contâiner Docker com o MySQL, configure a base de dados no .env criado, precisamente nas variáveis de ambiente que iniciarem com <b>DB_</b>. Neste caso, poderá desconsiderar as configurações referentes ao contâiner do MySQL definidas no arquivo <i>/compose.yaml</i>.
+Crie um arquivo .env utilizando o template do arquivo <b>.env.example</b>, descomentando e modificando as configurações referentes a banco da dados. Caso esteja usando um banco de dados local ao invés de criar um contâiner Docker com o MySQL, configure a base de dados no .env criado, precisamente nas variáveis de ambiente que iniciarem com <b>DB\_</b>. Neste caso, poderá desconsiderar as configurações referentes ao contâiner do MySQL definidas no arquivo <i>/compose.yaml</i>.
+
+Caso esteja utilizando o VScode e queira utilizar o prettier como formatador de código, adicione o seguinte código no arquivo <i>settings.json</i> do vscode:
+
+```json
+"[php]": {
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
+},
+```
 
 ## Como executar
 
@@ -80,6 +89,20 @@ $ npm install
 $ npm run build
 
 # Caso deseje simplificar os comandos, adicionar o apelido 'sail' ao comando './vendor/bin/sail'
-$ alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
-$ echo "alias sail='sh \$([ -f sail ] && echo sail || echo vendor/bin/sail)'" >> ~/.zshrc
+$ echo 'alias sail="./vendor/bin/sail"' >> ~/.zshrc # ou .bashrc, caso esteja usando o bash padrão
+$ source ~/.zshrc
+```
+
+## Comandos úteis
+
+#### Criar model
+
+```bash
+$ sail artisan make:model Post
+```
+
+#### Rollback de migration
+
+```bash
+$ sail artisan migrate:rollback
 ```
