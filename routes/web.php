@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 Route::get("/", function () {
     return view("welcome");
@@ -47,9 +48,26 @@ Route::get("/update", function () {
 Route::get("/delete", function () {
     $post = Post::find(1);
     $post->delete();
+
+
     dd($post);
 });
 
 Route::get("/usuario/{user}", [UserController::class, "show"]);
 
 Route::get("/usuarios", [UserController::class, "index"]);
+
+Route::get("/documento", function () {
+    // Criar um perfil ao osuário 2
+    $user = User::with('profile')->find(2);
+    $user->profile()->create([
+        'type' => 'PJ',
+        'document_number' => '123123123'
+    ]);
+
+    $user = User::join("profiles", "users.id", "=", "profiles.user_id")
+        ->whereNotNull("user_id")
+        ->with(relations: "profile")
+        ->first();
+    dd($user->profile->document_number);
+});
