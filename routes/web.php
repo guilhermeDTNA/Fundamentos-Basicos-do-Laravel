@@ -57,6 +57,7 @@ Route::get("/usuario/{user}", [UserController::class, "show"]);
 
 Route::get("/usuarios", [UserController::class, "index"]);
 
+// 1:1
 Route::get("/documento", function () {
     // Criar um perfil ao osuário 2
     $user = User::with('profile')->find(2);
@@ -72,7 +73,16 @@ Route::get("/documento", function () {
     dd($user->profile->document_number);
 });
 
+// 1:N
 Route::get('/posts', function () {
     $user = User::with(relations: 'posts')->find(id: 1);
+    dd($user);
+});
+
+// N:N
+Route::get('/roles', function () {
+    $user = User::with('roles')->find(1);
+    $user->roles()->detach(1);
+    $user->roles()->attach(1);
     dd($user);
 });
