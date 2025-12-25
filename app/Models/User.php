@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(related: Profile::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

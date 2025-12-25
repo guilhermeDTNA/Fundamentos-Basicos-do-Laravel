@@ -71,3 +71,8 @@ Route::get("/documento", function () {
         ->first();
     dd($user->profile->document_number);
 });
+
+Route::get('/posts', function () {
+    $user = User::with(relations: 'posts')->find(id: 1);
+    dd($user);
+});
