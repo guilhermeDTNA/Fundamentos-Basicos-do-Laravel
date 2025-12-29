@@ -62,14 +62,19 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 Crie um arquivo .env utilizando o template do arquivo <b>.env.example</b>, descomentando e modificando as configurações referentes a banco da dados. Caso esteja usando um banco de dados local ao invés de criar um contâiner Docker com o MySQL, configure a base de dados no .env criado, precisamente nas variáveis de ambiente que iniciarem com <b>DB\_</b>. Neste caso, poderá desconsiderar as configurações referentes ao contâiner do MySQL definidas no arquivo <i>/compose.yaml</i>.
 
-Caso esteja utilizando o VScode e queira utilizar o prettier como formatador de código, instale a extensão <b>PHP Intelephense</b> e adicione o seguinte código no arquivo <i>settings.json</i> do vscode:
+Caso esteja utilizando o VScode e queira utilizar o prettier como formatador de código, instale as extensões <a href="https://marketplace.visualstudio.com/items?itemName=onecentlin.laravel-blade" target="_blank"><b>Laravel Blade Snippets</b></a>, <a href="https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client" target="_blank"><b>PHP Intelephense</b></a> e <a href="https://marketplace.visualstudio.com/items?itemName=shufo.vscode-blade-formatter" target="_blank"><b>Laravel Blade Formatter</b></a>. Em seguida, adicione o seguinte código no arquivo <i>settings.json</i> do vscode:
 
 ```json
 "[php]": {
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-  },
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+},
+"[blade]": {
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+},
 ```
 
 ## Como executar
