@@ -6,83 +6,87 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", function () {
-    return view("welcome");
+  return view("welcome");
 });
 
 Route::get("/add", function () {
-    $post = new \App\Models\Post();
-    $post->title = "Meu primeiro post 1";
-    $post->body = "Conteúdo do meu primeiro post";
-    $post->save();
-    dd($post);
+  $post = new \App\Models\Post();
+  $post->title = "Meu primeiro post 1";
+  $post->body = "Conteúdo do meu primeiro post";
+  $post->save();
+  dd($post);
 });
 
 Route::get("/findbyid", function () {
-    $post = Post::find(1);
-    dd($post);
+  $post = Post::find(1);
+  dd($post);
 });
 
 Route::get("/findone", function () {
-    $post = Post::where("title", "Meu primeiro post")->first();
-    dd($post);
+  $post = Post::where("title", "Meu primeiro post")->first();
+  dd($post);
 });
 
 Route::get("/findmany", function () {
-    $post = Post::where("title", "LIKE", "%Meu primeiro post%")
-        ->orderBy("title", "DESC")
-        ->get();
-    dd($post);
+  $post = Post::where("title", "LIKE", "%Meu primeiro post%")
+    ->orderBy("title", "DESC")
+    ->get();
+  dd($post);
 });
 
 Route::get("/update", function () {
-    $post = Post::find(1);
-    $input = [
-        "title" => "Título atualizado via array",
-        "body" => "Conteúdo atualizado via array",
-    ];
-    $post->fill($input);
-    $post->save();
-    dd($post);
+  $post = Post::find(1);
+  $input = [
+    "title" => "Título atualizado via array",
+    "body" => "Conteúdo atualizado via array",
+  ];
+  $post->fill($input);
+  $post->save();
+  dd($post);
 });
 
 Route::get("/delete", function () {
-    $post = Post::find(1);
-    $post->delete();
+  $post = Post::find(1);
+  $post->delete();
 
 
-    dd($post);
+  dd($post);
 });
 
 Route::get("/usuario/{user}", [UserController::class, "show"]);
 
-Route::get("/usuarios", [UserController::class, "index"]);
+Route::get("/usuarios", [UserController::class, "index"])->name('users.show');
 
 // 1:1
 Route::get("/documento", function () {
-    // Criar um perfil ao osuário 2
-    $user = User::with('profile')->find(2);
-    $user->profile()->create([
-        'type' => 'PJ',
-        'document_number' => '123123123'
-    ]);
+  // Criar um perfil ao osuário 2
+  $user = User::with('profile')->find(2);
+  $user->profile()->create([
+    'type' => 'PJ',
+    'document_number' => '123123123'
+  ]);
 
-    $user = User::join("profiles", "users.id", "=", "profiles.user_id")
-        ->whereNotNull("user_id")
-        ->with(relations: "profile")
-        ->first();
-    dd($user->profile->document_number);
+  $user = User::join("profiles", "users.id", "=", "profiles.user_id")
+    ->whereNotNull("user_id")
+    ->with(relations: "profile")
+    ->first();
+  dd($user->profile->document_number);
 });
 
 // 1:N
 Route::get('/posts', function () {
-    $user = User::with(relations: 'posts')->find(id: 1);
-    dd($user);
+  $user = User::with(relations: 'posts')->find(id: 1);
+  dd($user);
 });
 
 // N:N
 Route::get('/roles', function () {
-    $user = User::with('roles')->find(1);
-    $user->roles()->detach(1);
-    $user->roles()->attach(1);
-    dd($user);
+  $user = User::with('roles')->find(1);
+  $user->roles()->detach(1);
+  $user->roles()->attach(1);
+  dd($user);
 });
+
+Route::get('/usuarios/add', [UserController::class, 'create']);
+
+Route::post('/usuarios/add', [UserController::class, 'store'])->name('users.store');
